@@ -3,11 +3,16 @@ using System.Collections;
 
 public class Armor : DamageableDecorator
 {
+	public delegate void ArmorDestroy ();
+	public event ArmorDestroy ArmorDestroyed;
+
 	public float armor;
+	protected float defaultArmor;
 
 	public Armor (Damageable damageable, float armor) : base(damageable)
 	{
 		this.armor = armor;
+		this.defaultArmor = armor;
 	}
 
 	public override float GetTotalCurrentHealth ()
@@ -22,7 +27,8 @@ public class Armor : DamageableDecorator
 			if (armor <= 0) {
 				damage = -armor;
 				armor = 0;
-				//TODO turnoff armor
+				if (ArmorDestroyed != null)
+					ArmorDestroyed ();
 			} else {
 				damage = 0;
 			}
@@ -30,4 +36,14 @@ public class Armor : DamageableDecorator
 		base.TakeDamage (damage);
 	}
 
+	public override void Reset ()
+	{
+		armor = defaultArmor;
+		base.Reset ();
+	}
+
+	public override float GetBasicHealthPercentage ()
+	{
+		return base.GetBasicHealthPercentage ();
+	}
 }

@@ -59,6 +59,7 @@ public class WeaponManager : MonoBehaviour
 				mainWeapon.Destroy ();
 
 			mainWeapon = InstantiateWeapon (mainWeaponTypes [mainWeaponSelected], mainWeaponPosition);
+			mainWeapon.tag = gameObject.tag;
 		}
 			
 		WeaponSystemBuilder builder = new WeaponSystemBuilder (mainWeapon);
@@ -74,6 +75,7 @@ public class WeaponManager : MonoBehaviour
 				sideWeapons = new Weapon[sideWeaponsPositions.Length];
 				for (int i=0; i< sideWeaponsPositions.Length; i++) {
 					sideWeapons [i] = InstantiateWeapon (sideWeaponsTypes [sideWeaponsSelected], sideWeaponsPositions [i]);
+					sideWeapons [i].tag = gameObject.tag;
 				}
 			}
 		}

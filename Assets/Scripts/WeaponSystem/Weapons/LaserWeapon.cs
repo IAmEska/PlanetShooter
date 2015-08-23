@@ -22,12 +22,13 @@ public class LaserWeapon : Weapon
 		DrawLaser ();
 		var hits = Physics2D.RaycastAll (transform.position, transform.up, laserDistance, LayerMask.NameToLayer ("Destroyable"));
 		foreach (RaycastHit2D hit in hits) {
-			HealthManager hm = hit.transform.GetComponent<HealthManager> ();
-			if (hm != null)
-				hm.TakeDamage (laserDamage);
-			else
-				Debug.LogError (hit.transform.GetInstanceID () + " was hit and has no health manager");
-
+			if (hit.transform.gameObject.tag != gameObject.tag) {
+				HealthManager hm = hit.transform.GetComponent<HealthManager> ();
+				if (hm != null)
+					hm.TakeDamage (laserDamage);
+				else
+					Debug.LogError (hit.transform.GetInstanceID () + " was hit and has no health manager");
+			}
 		}
 	}
 

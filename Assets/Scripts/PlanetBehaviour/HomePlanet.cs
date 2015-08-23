@@ -7,6 +7,7 @@ public class HomePlanet : MonoBehaviour
 {
 
 	public string playerTag = "Player";
+	public string enemyTag = "Enemy";
 	public float landingTime = 3f;
 	public float landingDistance = 0.5f;
 
@@ -35,7 +36,10 @@ public class HomePlanet : MonoBehaviour
 		if (other.gameObject.tag.Equals (playerTag)) {
 			player = other.transform;
 			StartCoroutine (LandingCountDown ());
+		} else if (other.gameObject.tag.Equals (enemyTag)) {
+			other.gameObject.GetComponent<HealthManager> ().TakeDamage (1000);
 		}
+
 	}
 
 	void OnTriggerExit2D (Collider2D other)

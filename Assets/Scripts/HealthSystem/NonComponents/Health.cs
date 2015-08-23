@@ -6,9 +6,12 @@ public class Health : Damageable
 
 	public float health;
 
+	protected float defaultHealth;
+
 	public Health (float health)
 	{
 		this.health = health;
+		defaultHealth = health;
 	}
 
 	#region implemented abstract members of Damageable
@@ -22,7 +25,17 @@ public class Health : Damageable
 	{
 		health = Mathf.Max (0, health - damage);
 	}
-	
+
+	public override void Reset ()
+	{
+		health = defaultHealth;
+	}
+
+	public override float GetBasicHealthPercentage ()
+	{
+		return health / defaultHealth;
+	}
+
 	#endregion
 
 }

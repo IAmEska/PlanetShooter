@@ -22,5 +22,16 @@ public abstract class DamageableDecorator : Damageable
 		damageable.TakeDamage (damage);
 	}
 
+	public override void Reset ()
+	{
+		damageable.Reset ();
+	}
+
+	public override float GetBasicHealthPercentage ()
+	{
+		return damageable.GetBasicHealthPercentage ();
+	}
+
+
 	#endregion
 }
